@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.main');
 });
+
+
+// Route::get('/', function () {
+//     if(Auth::user())
+//     {
+//         return view('layouts.main');
+//     }
+//     return redirect()->route('login');
+// });
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 Auth::routes();
 
