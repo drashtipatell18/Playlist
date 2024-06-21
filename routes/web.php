@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\PopularTopicsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,14 @@ Route::get('/subcategory/edit/{id}', [SubCategoryController::class, 'Editsubcate
 Route::post('/subcategory/update/{id}', [SubCategoryController::class, 'Updatesubcategory'])->name('update.subcategory');
 Route::get('/subcategory/destroy/{id}',[SubCategoryController::class,'Destroysubcategory'])->name('destroy.subcategory');
 
+// Popular Topics //
+
+Route::get('/populartopic', [PopularTopicsController::class, 'populartopics'])->name('populartopics');
+Route::get('/populartopic/create', [PopularTopicsController::class, 'createPopulartopics'])->name('populartopic.create');
+Route::post('/populartopic/store', [PopularTopicsController::class, 'storePopulartopics'])->name('populartopic.store');
+Route::get('/populartopic/edit/{id}', [PopularTopicsController::class, 'EditPopulartopics'])->name('edit.populartopic');
+Route::post('/populartopic/update/{id}', [PopularTopicsController::class, 'UpdatePopulartopics'])->name('update.populartopic');
+Route::get('/populartopic/destroy/{id}',[PopularTopicsController::class,'DestroyPopulartopics'])->name('destroy.populartopic');
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -16,4 +16,9 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function popularTopics()
+    {
+        return $this->hasMany(PopularTopics::class, 'sub_category_id');
+    }
 }
