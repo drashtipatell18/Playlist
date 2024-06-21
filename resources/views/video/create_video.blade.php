@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <style>
         .wrapper {
             background: #39E2B6;
@@ -104,20 +104,14 @@
                         @enderror
                     </div>
                 </div>
-                <div id="dZUpload" class="dropzone">
-                    <div class="dz-default dz-message"></div>
-                </div>
-                {{-- <div class="row mb-3">
-                    <label for="inputVideo" class="col-sm-2 col-form-label">Video </label>
-                    <div class="col-sm-10">
-                        <div id="dropzone" class="dropzone">
-                            <div class="dz-message">
-                                <span class="text">Drop files here or click to upload +</span>
+                <div class="row mb-3">
+                    <label for="inputPopularTopic" class="col-sm-2 col-form-label">Video</label>
+                        <div class="col-sm-10">
+                            <div id="dZUpload" class="dropzone">
+                                <div class="dz-default dz-message">Drop files here or click to upload +</div>
                             </div>
                         </div>
-                    </div>
-                </div> --}}
-
+                </div>
                 <div class="row mb-3">
                     <div class="col-sm-10 text-center">
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -126,16 +120,10 @@
 
             </form><!-- End General Form Elements -->
 
-            {{-- <form action="/file-upload"
-            class="dropzone"
-            id="my-awesome-dropzone"></form> --}}
-
         </div>
     </div>
 @endsection
 @push('scripts')
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css"> --}}
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <script>
         // Initialize Dropzone
@@ -150,7 +138,7 @@
             url: "hn_SimpeFileUploader.ashx",
         });
 
-        $("#frm").submit(function(e){
+        $("#frm").submit(function(e) {
             e.preventDefault();
             let formData = new FormData($("#frm")[0])
             formData.append('video', myDropzone.getAcceptedFiles()[0]);
