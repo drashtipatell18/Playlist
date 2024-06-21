@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('video_group_joins', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('group_id');
-            $table->unsignedBigInteger('video_id');
+            $table->unsignedBigInteger('group_id')->nullable();
+            $table->unsignedBigInteger('video_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('group_id')->references('id')->on('video_groups')->onDelete('set null');

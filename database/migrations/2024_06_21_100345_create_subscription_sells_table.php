@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('subscription_sells', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('subscription_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('subscription_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->date('validity')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->string('payment_id')->nullable();

@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\PopularTopicsController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\VideoGroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,11 @@ Route::post('/video/store', [VideoController::class, 'storevideo'])->name('video
 Route::get('/video/edit/{id}', [VideoController::class, 'Editvideo'])->name('edit.video');
 Route::post('/video/update/{id}', [VideoController::class, 'Updatevideo'])->name('update.video');
 Route::get('/video/destroy/{id}',[VideoController::class,'Destroyvideo'])->name('destroy.video');
+
+// Video Group
+Route::get('/video-group', [VideoGroupController::class, 'index'])->name('video-group');
+Route::post('/video-group/store', [VideoGroupController::class, 'store']);
+Route::get('/video-group/create', [VideoGroupController::class, 'create'])->name('video-group-create');
 
 Auth::routes();
 

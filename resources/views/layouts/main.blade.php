@@ -511,6 +511,13 @@
                     <span>Video</span>
                 </a>
             </li><!-- End Popular Topic Nav -->
+            
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('video-group') }}">
+                  <i class="bi bi-collection-play"></i>
+                    <span>Video Group</span>
+                </a>
+            </li><!-- End Popular Topic Nav -->
 
 
             <li class="nav-item">
