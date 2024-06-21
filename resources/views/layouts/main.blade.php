@@ -538,21 +538,6 @@
 
         </ul>
 
-<<<<<<< HEAD
-    <div class="pagetitle mt-4">
-      {{-- <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-          <li class="breadcrumb-item active">Category</li>
-        </ol>
-      </nav> --}}
-    </div>
-=======
-    </aside><!-- End Sidebar-->
->>>>>>> f46be3286872edf01b97b5d2b7603607a41babb0
-
     <main id="main" class="main">
 
         <div class="pagetitle">
