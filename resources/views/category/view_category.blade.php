@@ -1,29 +1,15 @@
 @extends('layouts.main')
-
 @section('content')
-    <div class="card">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="card-title">Category List</h5>
-            <div>
-                <a href="{{ route('category.create') }}">
-                    <button type="button" class="btn btn-primary btn-sm mt-1" id="addCategoryBtn"><i class="bi bi-plus-lg"></i>
-                        Add Category</button>
-                </a>
-            </div>
-        </div>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('danger'))
-            <div class="alert alert-danger">
-                {{ session('success') }}
-            </div>
-        @endif
-        <div class="card-body pb-0">
-            <div class="table-responsive mt-3">
-                <table class="table table-striped">
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Category</h5>
+                    <a href="{{ route('category.create') }}"><button type="button" class="button-color"><i
+                                class="bi bi-plus-lg me-1"></i>Add Category</button></a>
+                </div>
+                <table class="table datatable">
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
@@ -44,8 +30,8 @@
                                             class="bi bi-trash3-fill"></i></a>
                                 </td>
                             </tr>
-                        @endforeach
                     </tbody>
+                    @endforeach
                 </table>
             </div>
         </div>
