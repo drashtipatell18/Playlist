@@ -30,8 +30,8 @@
                                             class="bi bi-trash3-fill"></i></a>
                                 </td>
                             </tr>
+                        @endforeach
                     </tbody>
-                    @endforeach
                 </table>
             </div>
         </div>

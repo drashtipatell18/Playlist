@@ -141,7 +141,7 @@
         $("#frm").submit(function(e) {
             e.preventDefault();
             let formData = new FormData($("#frm")[0])
-            formData.append('video', myDropzone.getAcceptedFiles()[0]);
+            formData.append('video', myDropzone.getAcceptedFiles()[0])
             console.log(...formData);
         })
     </script>
