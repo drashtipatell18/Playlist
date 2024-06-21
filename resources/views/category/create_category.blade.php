@@ -2,10 +2,11 @@
 @section('content')
     <div class="col-lg-8 align-content">
         <div class="card section-center">
-            <div class="card-body">
                 <div class="card-body">
-                    <h5 class="card-title text-align">{{ isset($category) ? 'Edit Category' : 'Create Category' }}</h5>
-
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title text-align">{{ isset($category) ? 'Edit Category' : 'Create Category' }}</h5>
+                        <a href="{{ route('category') }}"><button type="button" class="button-color"></i>View Category</button></a>
+                    </div>
                     <!-- General Form Elements -->
                     <form action="{{ isset($category) ? '/category/update/' . $category->id : '/category/store' }}"
                         method="POST">
@@ -29,7 +30,6 @@
                         </div>
                     </form><!-- End General Form Elements -->
                 </div>
-            </div>
         </div>
     </div>
 @endsection
