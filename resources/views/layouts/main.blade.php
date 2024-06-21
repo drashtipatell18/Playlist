@@ -55,8 +55,9 @@
         .section-center {
             align-content: center !important;
         }
-        .text-center-form{
-          text-align: center; 
+
+        .text-center-form {
+            text-align: center;
         }
     </style>
 </head>
@@ -541,15 +542,12 @@
             </li><!-- End Blank Page Nav -->
 
         </ul>
-
-<<<<<<< HEAD
+        
 
 
     </aside><!-- End Sidebar-->
 
 
-=======
->>>>>>> 2b5ff0cef0bcb63ce8651e7fa86d3ad7da773b4f
     <main id="main" class="main">
         <div class="pagetitle mt-4">
             {{-- <h1>Dashboard</h1>
