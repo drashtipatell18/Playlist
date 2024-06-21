@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-    <div class="col-lg-8 align-content">
+    <div class="col-lg-8 align-content" style="margin-left: auto;margin-right: auto">
         <div class="card section-center">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">

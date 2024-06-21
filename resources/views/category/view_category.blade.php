@@ -1,5 +1,20 @@
 @extends('layouts.main')
 @section('content')
+    <style>
+        .search-container {
+            position: relative;
+            display: inline-block;
+        }
+        .search-container i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .search-container input {
+            padding-left: 30px; /* Add padding to the left to make space for the icon */
+        }
+    </style>
     <div class="col-lg-12">
 
         <div class="card">
@@ -19,7 +34,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <table class="table datatable">
+                <table class="table datatable1">
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
@@ -50,9 +65,22 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            let datatable = new simpleDatatables.DataTable($(".datatable1")[0])
             setTimeout(function() {
                 $(".alert-success").fadeOut(1000);
             }, 1000);
+            datatable.on('datatable.init', function() {
+                // Create a search container
+                let searchContainer = $('<div class="search-container"></div>');
+                let searchIcon = $('<i class="bi bi-search"></i>');
+                let searchInput = $(".datatable-input");
+
+                // Append the icon and the input to the search container
+                searchContainer.append(searchInput).append(searchIcon);
+
+                // Replace the original search input with the search container
+                $('.datatable-top').find('.datatable-search').html(searchContainer);
+            });
         });
     </script>
 @endpush
