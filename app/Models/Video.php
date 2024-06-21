@@ -26,4 +26,9 @@ class Video extends Model
     {
         return $this->belongsTo(PopularTopics::class, 'popular_topic_id');
     }
+
+    public function video_groups()
+    {
+        return $this->hasMany(VideoGroupJoin::class, 'video_id');
+    }
 }

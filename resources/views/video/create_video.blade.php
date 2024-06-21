@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('content')
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <style>
         .wrapper {
             background: #39E2B6;
@@ -17,6 +18,8 @@
         }
 
         .dropzone {
+            margin-left: auto !important;
+            margin-right: auto !important;
             width: 50%;
             margin: 1%;
             border: 2px dashed #3498db !important;
@@ -39,7 +42,7 @@
             <h5 class="card-title">{{ isset($video) ? 'Edit Video' : 'Create Popular Video' }}</h5>
 
             <!-- General Form Elements -->
-            <form action="{{ isset($video) ? '/video/update/' . $video->id : '/video/store' }}" method="POST">
+            <form action="{{ isset($video) ? '/video/update/' . $video->id : '/video/store' }}" id="frm" method="POST">
                 @csrf
                 <div class="row mb-3">
                     <label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
@@ -88,9 +91,9 @@
                             name="popular_topic_id">
                             <option value="">Select Popular Topic</option>
                             @foreach ($populartopics as $id => $name)
-                                <option value="{{ $id }}"
+                                <option value="{{ $name }}"
                                     {{ old('popular_topic_id', isset($video) ? $video->popular_topic_id : '') == $id ? 'selected' : '' }}>
-                                    {{ $name }}
+                                    {{ $id }}
                                 </option>
                             @endforeach
                         </select>
@@ -100,6 +103,9 @@
                             </span>
                         @enderror
                     </div>
+                </div>
+                <div id="dZUpload" class="dropzone">
+                    <div class="dz-default dz-message"></div>
                 </div>
                 {{-- <div class="row mb-3">
                     <label for="inputVideo" class="col-sm-2 col-form-label">Video </label>
@@ -111,14 +117,6 @@
                         </div>
                     </div>
                 </div> --}}
-                <form action="/upload" class="dropzone" id="dropzone">
-                    <div class="dz-message ">
-                      <span class="text">
-                      Drop files here or click to upload + 
-                      </span>
-                      
-                    </div>
-                  </form>
 
                 <div class="row mb-3">
                     <div class="col-sm-10 text-center">
@@ -128,29 +126,35 @@
 
             </form><!-- End General Form Elements -->
 
+            {{-- <form action="/file-upload"
+            class="dropzone"
+            id="my-awesome-dropzone"></form> --}}
+
         </div>
     </div>
 @endsection
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css"> --}}
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <script>
         // Initialize Dropzone
         Dropzone.autoDiscover = false;
-        const myDropzone = new Dropzone("#my-dropzone", {
+        const myDropzone = new Dropzone("#dZUpload", {
+            uploadMultiple: false,
             paramName: "file", // The name that will be used to transfer the file
             maxFilesize: 500, // MB
             acceptedFiles: "video/*", // Limit file types to video files
             parallelUploads: 2, // Number of files to upload in parallel
-            dictDefaultMessage: "Drop video files here or click to upload."
+            dictDefaultMessage: "Drop video files here or click to upload.",
+            url: "hn_SimpeFileUploader.ashx",
         });
 
-        // Handle form submission
-        myDropzone.on("sending", function(file, xhr, formData) {
-            // Append all form inputs to the formData Dropzone will send
-            document.querySelectorAll('form#my-dropzone input, form#my-dropzone select').forEach(function(input) {
-                formData.append(input.name, input.value);
-            });
-        });
+        $("#frm").submit(function(e){
+            e.preventDefault();
+            let formData = new FormData($("#frm")[0])
+            formData.append('video', myDropzone.getAcceptedFiles()[0]);
+            console.log(...formData);
+        })
     </script>
 @endpush
