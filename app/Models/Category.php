@@ -12,4 +12,19 @@ class Category extends Model
 
     protected $table = 'categories';
     protected $fillable = ['category_name'];
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'category_id');
+    }
+    
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
+
+    public function popularTopics()
+    {
+        return $this->hasMany(PopularTopics::class, 'category_id');
+    }
 }
