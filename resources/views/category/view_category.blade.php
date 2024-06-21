@@ -23,7 +23,7 @@
         @endif
         <div class="card-body pb-0">
             <div class="table-responsive mt-3">
-                <table class="table table-striped " id="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
@@ -54,8 +54,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#table').DataTable();
-
             setTimeout(function() {
                 $(".alert-success").fadeOut(1000);
             }, 1000);
