@@ -27,8 +27,9 @@
     <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.css">
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.js"></script>
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
@@ -40,31 +41,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-<style>
-    .dropzone {
-        border: 2px dashed #ccc;
-        border-radius: 8px;
-        padding: 20px;
-        text-align: center;
-        margin: 20px auto;
-        width: 300px;
-        cursor: pointer;
-        /* Change cursor to pointer on hover */
-    }
 
-    .dropzone .dz-message {
-        color: #666;
-    }
-
-    .dropzone.dragover {
-        border-color: #2196F3;
-    }
-
-    /* Optional: Styling the file input */
-    .dropzone input[type="file"] {
-        display: none;
-    }
-</style>
 
 <body>
 
@@ -586,7 +563,6 @@
             class="bi bi-arrow-up-short"></i></a>
     <!-- Vendor JS Files -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!-- Bootstrap JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
     <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
