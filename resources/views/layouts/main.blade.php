@@ -36,6 +36,21 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <style>
+    /* Custom button color */
+    .button-color {
+        background-color: #4154F1;
+        color: white; /* Use 'color' for text color */
+        border: none;
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+    .section-center{
+      align-content: center !important;
+    }
+    
+</style>
 </head>
 
 <body>
@@ -513,15 +528,16 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
+    <div class="pagetitle mt-4">
+      {{-- <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">Category</li>
         </ol>
-      </nav>
-    </div><!-- End Page Title -->
+      </nav> --}}
+    </div>
 
     <section class="section dashboard">
       <div class="row">
