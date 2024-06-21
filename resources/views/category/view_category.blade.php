@@ -11,10 +11,19 @@
                 </a>
             </div>
         </div>
-
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('danger'))
+            <div class="alert alert-danger">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="card-body pb-0">
             <div class="table-responsive mt-3">
-                <table class="table table-striped jambo_table bulk_action" id="table">
+                <table class="table table-striped " id="table">
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
@@ -39,8 +48,17 @@
                     </tbody>
                 </table>
             </div>
-
-            
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+
+            setTimeout(function() {
+                $(".alert-success").fadeOut(1000);
+            }, 1000);
+        });
+    </script>
+@endpush
