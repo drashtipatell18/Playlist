@@ -21,4 +21,9 @@ class SubCategory extends Model
     {
         return $this->hasMany(PopularTopics::class, 'sub_category_id');
     }
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'sub_category_id');
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\PopularTopicsController;
+use App\Http\Controllers\VideoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,18 +20,14 @@ use App\Http\Controllers\PopularTopicsController;
 |
 */
 
+
 Route::get('/', function () {
-    return view('layouts.main');
+    if(Auth::user())
+    {
+        return view('dashboard');
+    }
+    return redirect()->route('login');
 });
-
-
-// Route::get('/', function () {
-//     if(Auth::user())
-//     {
-//         return view('layouts.main');
-//     }
-//     return redirect()->route('login');
-// });
 Route::get('/login', [HomeController::class, 'Login'])->name('login');
 Route::post('/loginstore', [HomeController::class, 'loginStore'])->name('loginstore');
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -62,6 +59,16 @@ Route::post('/populartopic/store', [PopularTopicsController::class, 'storePopula
 Route::get('/populartopic/edit/{id}', [PopularTopicsController::class, 'EditPopulartopics'])->name('edit.populartopic');
 Route::post('/populartopic/update/{id}', [PopularTopicsController::class, 'UpdatePopulartopics'])->name('update.populartopic');
 Route::get('/populartopic/destroy/{id}',[PopularTopicsController::class,'DestroyPopulartopics'])->name('destroy.populartopic');
+
+// Video  //
+
+Route::get('/video', [VideoController::class, 'video'])->name('video');
+Route::get('/video/create', [VideoController::class, 'createvideo'])->name('video.create');
+Route::post('/video/store', [VideoController::class, 'storevideo'])->name('video.store');
+Route::get('/video/edit/{id}', [VideoController::class, 'Editvideo'])->name('edit.video');
+Route::post('/video/update/{id}', [VideoController::class, 'Updatevideo'])->name('update.video');
+Route::get('/video/destroy/{id}',[VideoController::class,'Destroyvideo'])->name('destroy.video');
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

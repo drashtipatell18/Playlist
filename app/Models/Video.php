@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PopularTopics extends Model
+class Video extends Model
 {
-    use HasFactory, SoftDeletes;
-    protected $table = 'popular_topics';
-    protected $fillable = ['category_id','sub_category_id','popular_topics_name'];
+    use HasFactory , SoftDeletes;
+    protected $table = 'videos';
+    protected $fillable = ['category_id','sub_category_id','popular_topic_id','video','video_course_name','price','description','author','perview'];
 
-    public function category()  
+    public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
@@ -22,8 +22,8 @@ class PopularTopics extends Model
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
 
-    public function videos()
+    public function popularTopic()
     {
-        return $this->hasMany(Video::class, 'popular_topic_id');
+        return $this->belongsTo(PopularTopics::class, 'popular_topic_id');
     }
 }
