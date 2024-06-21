@@ -31,4 +31,8 @@ class Video extends Model
     {
         return $this->hasMany(VideoGroupJoin::class, 'video_id');
     }
+    public function subscriptiom_sell()
+    {
+        return $this->hasMany(SubscriptionSell::class, 'subscription_id');
+    }
 }
