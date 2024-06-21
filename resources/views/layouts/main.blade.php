@@ -41,20 +41,24 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-  <style>
-    /* Custom button color */
-    .button-color {
-        background-color: #4154F1;
-        color: white; /* Use 'color' for text color */
-        border: none;
-        padding: 7px 12px;
-        font-size: 12px;
-    }
-    .section-center{
-      align-content: center !important;
-    }
-    
-</style>
+    <style>
+        /* Custom button color */
+        .button-color {
+            background-color: #4154F1;
+            color: white;
+            /* Use 'color' for text color */
+            border: none;
+            padding: 7px 12px;
+            font-size: 12px;
+        }
+
+        .section-center {
+            align-content: center !important;
+        }
+        .text-center-form{
+          text-align: center; 
+        }
+    </style>
 </head>
 
 
@@ -538,32 +542,23 @@
 
         </ul>
 
-<<<<<<< HEAD
-    <div class="pagetitle mt-4">
-      {{-- <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-          <li class="breadcrumb-item active">Category</li>
-        </ol>
-      </nav> --}}
-    </div>
-=======
+
+
     </aside><!-- End Sidebar-->
->>>>>>> f46be3286872edf01b97b5d2b7603607a41babb0
+
 
     <main id="main" class="main">
+        <div class="pagetitle mt-4">
+            {{-- <h1>Dashboard</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item active">Category</li>
+          </ol>
+        </nav> --}}
+        </div>
 
-        <div class="pagetitle">
-            <h1>Dashboard</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
 
         <section class="section dashboard">
             <div class="row">
