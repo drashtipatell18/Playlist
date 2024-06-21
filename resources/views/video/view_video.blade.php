@@ -43,7 +43,7 @@
                             <tr class="">
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td class="text-center">{{ $video->category->category_name ?? 'N/A' }}</td>
-                                <td class="text-center">{{ $video->subCategory->sub_category_name ?? 'N/A' }}</td>
+                                <td class="text-center">{{ $video->subCategory->subcategory_name ?? 'N/A' }}</td>
                                 <td class="text-center">{{ $video->popularTopic->popular_topics_name ?? 'N/A' }}</td>
                                 <td class="text-center">{{ $video->video_course_name }}</td>
                                 <td class="text-center">{{ $video->price }}</td>
