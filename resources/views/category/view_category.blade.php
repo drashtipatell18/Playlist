@@ -5,10 +5,20 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">Category</h5>
+                    <h5 class="card-title mb-0">Category List</h5>
                     <a href="{{ route('category.create') }}"><button type="button" class="button-color"><i
                                 class="bi bi-plus-lg me-1"></i>Add Category</button></a>
                 </div>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('danger'))
+                    <div class="alert alert-danger">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <table class="table datatable">
                     <thead>
                         <tr>

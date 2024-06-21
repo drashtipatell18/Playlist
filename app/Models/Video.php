@@ -10,7 +10,7 @@ class Video extends Model
 {
     use HasFactory , SoftDeletes;
     protected $table = 'videos';
-    protected $fillable = ['category_id','sub_category_id','popular_topic_id','video','video_course_name','price','description','author','perview'];
+    protected $fillable = ['category_id','sub_category_id','popular_topic_id','video','video_course_name','price','description','author','preview'];
 
     public function category()
     {

@@ -106,12 +106,69 @@
                 </div>
                 <div class="row mb-3">
                     <label for="inputPopularTopic" class="col-sm-2 col-form-label">Video</label>
-                        <div class="col-sm-10">
-                            <div id="dZUpload" class="dropzone">
-                                <div class="dz-default dz-message">Drop files here or click to upload +</div>
-                            </div>
+                    <div class="col-sm-10">
+                        <div id="dZUpload" class="dropzone">
+                            <div class="dz-default dz-message">Drop files here or click to upload +</div>
                         </div>
+                    </div>
                 </div>
+
+                <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Video Course Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control @error('video_course_name') is-invalid @enderror"
+                            name="video_course_name"
+                            value="{{ old('video_course_name', $video->video_course_name ?? '') }}">
+                        @error('video_course_name')
+                            <span class="invalid-feedback" style="color: red">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control @error('price') is-invalid @enderror" name="price"
+                            value="{{ old('price', $video->price ?? '') }}">
+                        @error('price')
+                            <span class="invalid-feedback" style="color: red">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="description" class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="description" id="description" rows="4">{{ old('description', $video->description ?? '') }}</textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Author</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control @error('author') is-invalid @enderror" name="author"
+                            value="{{ old('author', $video->author ?? '') }}">
+                        @error('author')
+                            <span class="invalid-feedback" style="color: red">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputPopularTopic" class="col-sm-2 col-form-label">Preview</label>
+                    <div class="col-sm-10">
+                        <div id="dZUpload1" class="dropzone">
+                            <div class="dz-default dz-message">Drop files here or click to upload +</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <div class="col-sm-10 text-center">
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -119,7 +176,6 @@
                 </div>
 
             </form><!-- End General Form Elements -->
-
         </div>
     </div>
 @endsection
@@ -137,12 +193,47 @@
             dictDefaultMessage: "Drop video files here or click to upload.",
             url: "hn_SimpeFileUploader.ashx",
         });
+        const myDropzone1 = new Dropzone("#dZUpload1", {
+            uploadMultiple: false,
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 500, // MB
+            acceptedFiles: "video/*", // Limit file types to video files
+            parallelUploads: 2, // Number of files to upload in parallel
+            dictDefaultMessage: "Drop video files here or click to upload.",
+            url: "hn_SimpeFileUploader.ashx",
+        });
 
         $("#frm").submit(function(e) {
             e.preventDefault();
-            let formData = new FormData($("#frm")[0])
-            formData.append('video', myDropzone.getAcceptedFiles()[0])
-            console.log(...formData);
-        })
+
+            let formData = new FormData($("#frm")[0]);
+            formData.append('video', myDropzone.getAcceptedFiles()[0]);
+            formData.append('preview', myDropzone1.getAcceptedFiles()[0]);
+
+            $.ajax({
+                url: "{{ route('video.store') }}", // Ensure the correct route is set
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.success) {
+                        // alert('Video inserted successfully.');
+                        window.location.href = "{{ route('video') }}"; // Redirect to the videos page
+                    } else {
+                        alert('An error occurred.');
+                        console.log(response.errors);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    let errors = xhr.responseJSON.errors;
+                    for (let key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            alert(errors[key]);
+                        }
+                    }
+                }
+            });
+        });
     </script>
 @endpush
