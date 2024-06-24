@@ -5,17 +5,14 @@
             position: relative;
             display: inline-block;
         }
-
         .search-container i {
             position: absolute;
             left: 10px;
             top: 50%;
             transform: translateY(-50%);
         }
-
         .search-container input {
-            padding-left: 30px;
-            /* Add padding to the left to make space for the icon */
+            padding-left: 30px; /* Add padding to the left to make space for the icon */
         }
     </style>
     <div class="col-lg-12">
@@ -23,9 +20,9 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">Video Group</h5>
-                    <a href="{{ route('videogroup.create') }}"><button type="button" class="button-color"><i
-                                class="bi bi-plus-lg me-1"></i>Add Video Group</button></a>
+                    <h5 class="card-title mb-0">Subscription List</h5>
+                    <a href="{{ route('subscription.create') }}"><button type="button" class="button-color"><i
+                                class="bi bi-plus-lg me-1"></i>Add Subscription</button></a>
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -41,27 +38,23 @@
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
-                            <th class="text-center">Name</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Image</th>
-                            <th>Action</th>
+                            <th class="text-center">Plan Name</th>
+                            <th class="text-center">Duration</th>
+                            <th class="text-center">Description</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($videoGroups as $index => $videoGroup)
+                        @foreach ($subscriptions as $index => $subscription)
                             <tr class="">
                                 <td class="text-center">{{ $index + 1 }}</td>
-                                <td class="text-center">{{ $videoGroup->group_name }}</td>
-                                <td class="text-center">{{ $videoGroup->price }}</td>
+                                <td class="text-center">{{ $subscription->plan_name }}</td>
+                                <td class="text-center">{{ $subscription->duration }}</td>
+                                <td class="text-center">{{ $subscription->description }}</td>
                                 <td class="text-center">
-                                    <img src="{{ url('video_groups/' . $videoGroup->image) }}" alt=""
-                                        width="70">
-                                </td>
-                                <td class="text-center">
-                                    <a href="{{ route('edit.videogroup', $videoGroup->id) }}" class="btn btn-info btn-sm"><i
+                                    <a href="{{ route('edit.subscription', $subscription->id) }}" class="btn btn-info btn-sm"><i
                                             class="bi bi-pencil-square"></i></a>
-                                    <a href="{{ route('destroy.videogroup', $videoGroup->id) }}"
-                                        class="btn btn-danger btn-sm"
+                                    <a href="{{ route('destroy.subscription', $subscription->id) }}" class="btn btn-danger btn-sm"
                                         onclick="return confirm('Are you sure you want to delete this ?');"><i
                                             class="bi bi-trash3-fill"></i></a>
                                 </td>
