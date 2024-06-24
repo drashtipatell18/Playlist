@@ -20,7 +20,7 @@ class SubscriptionSell extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function group()
+    public function videoGroup()
     {
         return $this->belongsTo(VideoGroup::class, 'group_id');
     }

@@ -39,7 +39,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-10 text-center">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary"></button>
                     </div>
                 </div>
 

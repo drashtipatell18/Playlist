@@ -7,7 +7,7 @@
                     <h5 class="card-title text-align">
                         {{ isset($subscription) ? 'Edit Subscription' : 'Create Subscription' }}</h5>
                     <a href="{{ route('subscription') }}"><button type="button" class="button-color"></i>View
-                        Subscription</button></a>
+                            Subscription</button></a>
                 </div>
                 <!-- General Form Elements -->
                 <form
@@ -50,7 +50,13 @@
 
                     <div class="row mt-4">
                         <div class="col-sm-10 text-center">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">
+                                @if (isset($subscription))
+                                    Update
+                                @else
+                                    Save
+                                @endif
+                            </button>
                         </div>
                     </div>
                 </form><!-- End General Form Elements -->
