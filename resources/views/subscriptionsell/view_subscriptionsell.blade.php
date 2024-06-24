@@ -82,6 +82,10 @@
             setTimeout(function() {
                 $(".alert-success").fadeOut(1000);
             }, 1000);
+
+            setTimeout(function() {
+                $(".alert-dager").fadeOut(1000);
+            }, 1000);
             datatable.on('datatable.init', function() {
                 // Create a search container
                 let searchContainer = $('<div class="search-container"></div>');
