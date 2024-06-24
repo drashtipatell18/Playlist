@@ -42,7 +42,7 @@
             <h5 class="card-title">{{ isset($video) ? 'Edit Video' : 'Create Popular Video' }}</h5>
 
             <!-- General Form Elements -->
-            <form action="{{ isset($video) ? '/video/update/' . $video->id : '/video/store' }}" id="frm" method="POST">
+            <form action="{{ isset($video) ? '/video/update/' . $videovideoid : '/video/store' }}" id="frm" method="POST">
                 @csrf
                 <div class="row mb-3">
                     <label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
@@ -108,6 +108,15 @@
                     <label for="inputPopularTopic" class="col-sm-2 col-form-label">Video</label>
                     <div class="col-sm-10">
                         <div id="dZUpload" class="dropzone">
+                            @if (isset($video) && $video->video)
+                                <div class="mt-2">
+                                    <video width="320" height="240" controls>
+                                        <source src="{{ url('videos/' . $video->video) }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <input type="hidden" name="existing_video" value="{{ $video->video }}">
+                                </div>
+                            @endif
                             <div class="dz-default dz-message">Drop files here or click to upload +</div>
                         </div>
                     </div>
@@ -171,7 +180,13 @@
 
                 <div class="row mb-3">
                     <div class="col-sm-10 text-center">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">
+                            @if (isset($video))
+                                Update
+                            @else
+                                Save
+                            @endif
+                        </button>
                     </div>
                 </div>
 

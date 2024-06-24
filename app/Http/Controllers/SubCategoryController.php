@@ -57,9 +57,9 @@ class SubCategoryController extends Controller
     }
     public function Destroysubcategory($id)
     {
-            $subcategory = SubCategory::find($id);
-            $subcategory->delete();
-            session()->flash('danger', 'Subcategory Delete successfully!');
-            return redirect()->back();
+        $subcategory = SubCategory::find($id);
+        $subcategory->delete();
+        session()->flash('danger', 'Subcategory Delete successfully!');
+        return redirect()->back();
     }
 }
