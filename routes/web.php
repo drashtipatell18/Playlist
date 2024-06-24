@@ -9,6 +9,8 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\PopularTopicsController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\VideoGroupController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\SubscriptionSellController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +79,24 @@ Route::post('/video-group/store', [VideoGroupController::class, 'storeVideogroup
 Route::get('/video-group/edit/{id}', [VideoGroupController::class, 'editVideogroup'])->name('edit.videogroup');
 Route::post('/video-group/update/{id}', [VideoGroupController::class, 'updateVideogroup'])->name('update.videogroup');
 Route::get('/video-group/destroy/{id}', [VideoGroupController::class, 'destroyVideogroup'])->name('destroy.videogroup');
+
+// Subscription
+
+Route::get('/subscription', [SubscriptionController::class, 'subscription'])->name('subscription');
+Route::get('/subscription/create', [SubscriptionController::class, 'createSubscription'])->name('subscription.create');
+Route::post('/subscription/store', [SubscriptionController::class, 'storeSubscription'])->name('subscription.store');
+Route::get('/subscription/edit/{id}', [SubscriptionController::class, 'editSubscription'])->name('edit.subscription');
+Route::post('/subscription/update/{id}', [SubscriptionController::class, 'updateSubscription'])->name('update.subscription');
+Route::get('/subscription/destroy/{id}', [SubscriptionController::class, 'destroySubscription'])->name('destroy.subscription');
+
+// Subscription - sell
+
+Route::get('/subscription-sell', [SubscriptionSellController::class, 'subscriptionsell'])->name('subscriptionsell');
+Route::get('/subscription-sell/create', [SubscriptionSellController::class, 'createSubscriptionsell'])->name('subscriptionsell.create');
+Route::post('/subscription-sell/store', [SubscriptionSellController::class, 'storeSubscriptionsell'])->name('subscriptionsell.store');
+Route::get('/subscription-sell/edit/{id}', [SubscriptionSellController::class, 'editSubscriptionsell'])->name('edit.subscriptionsell');
+Route::post('/subscription-sell/update/{id}', [SubscriptionSellController::class, 'updateSubscriptionsell'])->name('update.subscriptionsell');
+Route::get('/subscription-sell/destroy/{id}', [SubscriptionSellController::class, 'destroySubscriptionsell'])->name('destroy.subscriptionsell');
 
 Auth::routes();
 

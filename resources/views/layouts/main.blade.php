@@ -521,9 +521,9 @@
 
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-register.html">
-                    <i class="bi bi-card-list"></i>
-                    <span>Register</span>
+                <a class="nav-link collapsed" href="{{ route('subscription') }}">
+                  <i class="bi bi-substack"></i>
+                    <span>Subscription</span>
                 </a>
             </li><!-- End Register Page Nav -->
 
