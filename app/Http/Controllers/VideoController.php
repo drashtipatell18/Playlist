@@ -37,13 +37,10 @@ class VideoController extends Controller
         ]);
 
         try {
-            $videoFiles = [];
-            if ($request->hasFile('videos')) {
-                foreach ($request->file('videos') as $videoFile) {
+            if ($request->hasFile('video')) {
+                    $videoFile = $request->file('video');
                     $videoFileName = time() . '_' . $videoFile->getClientOriginalName();
                     $videoFile->move(public_path('videos'), $videoFileName);
-                    $videoFiles[] = $videoFileName;
-                }
             }
 
             $previewFileName = null;
@@ -58,15 +55,12 @@ class VideoController extends Controller
                 'sub_category_id' => $request->input('sub_category_id'),
                 'popular_topic_id' => $request->input('popular_topic_id'),
                 'video_course_name' => $request->input('video_course_name'),
+                'video' => $videoFile,
                 'price' => $request->input('price'),
                 'description' => $request->input('description'),
                 'author' => $request->input('author'),
                 'preview' => $previewFileName,
             ]);
-
-            foreach ($videoFiles as $fileName) {
-                $video->videos()->create(['file_name' => $fileName]);
-            }
 
             session()->flash('success', 'Video inserted successfully');
             return response()->json(['success' => true, 'message' => 'Video inserted successfully.']);
