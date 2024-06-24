@@ -41,7 +41,7 @@
                                 <td class="text-center">{{ $videoGroup->group_name }}</td>
                                 <td class="text-center">{{ $videoGroup->price }}</td>
                                 <td class="text-center">
-                                    <img src="{{ public_path('vide_groups/' . $videoGroup->image) }}" alt="">
+                                    <img src="{{ url('vide_groups/' . $videoGroup->image) }}" alt="" width="70">
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('edit.category', $videoGroup->id) }}" class="btn btn-info btn-sm"><i
