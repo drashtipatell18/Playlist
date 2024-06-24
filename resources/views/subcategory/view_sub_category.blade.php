@@ -20,7 +20,8 @@
     </style>
     <div class="col-lg-12">
         <div class="card">
-            <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">Sub Category List</h5>
                 <div>
                     <a href="{{ route('subcategory.create') }}">
@@ -71,6 +72,7 @@
                     </table>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 @endsection
