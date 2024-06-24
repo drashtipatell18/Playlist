@@ -111,15 +111,15 @@
                 <div class="row mb-3">
                     <label for="inputPopularTopic" class="col-sm-2 col-form-label">Video</label>
                     <div class="col-sm-10">
-                        <div id="dZUpload" class="dropzone">
-                            @if (isset($video) && $video->video)
+                        <div id="dZUpload" class="dropzone" data-video-url="{{ isset($video) ? $video->video : '' }}">
+                            {{-- @if (isset($video) && $video->video)
                                 <div class="mt-2">
                                     <video width="200" height="200" controls>
                                         <source src="{{ url('videos/' . $video->video) }}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
-                            @endif
+                            @endif --}}
                             <div class="dz-default dz-message">Drop files here or click to upload +</div>
                         </div>
                     </div>
@@ -175,15 +175,15 @@
                 <div class="row mb-3">
                     <label for="inputPopularTopic" class="col-sm-2 col-form-label">Preview</label>
                     <div class="col-sm-10">
-                        <div id="dZUpload1" class="dropzone">
-                            @if (isset($video) && $video->video)
+                        <div id="dZUpload1" class="dropzone" data-video-url="{{ isset($video) ? $video->perview : '' }}">
+                            {{-- @if (isset($video) && $video->video)
                                 <div class="mt-2">
                                     <video width="200" height="200" controls>
                                         <source src="{{ url('videos/' . $video->video) }}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
-                            @endif
+                            @endif --}}
                             <div class="dz-default dz-message">Drop files here or click to upload +</div>
                         </div>
                     </div>
@@ -210,23 +210,72 @@
     <script>
         // Initialize Dropzone
         Dropzone.autoDiscover = false;
+
+        function createVideoThumbnail(file, videoUrl, dropzoneInstance) {
+            const videoElement = document.createElement('video');
+            videoElement.width = 120;
+            videoElement.controls = true;
+            videoElement.src = videoUrl;
+
+            dropzoneInstance.emit("addedfile", file);
+            dropzoneInstance.emit("thumbnail", file, videoElement);
+            dropzoneInstance.emit("complete", file);
+            dropzoneInstance.files.push(file);
+
+            file.previewElement.appendChild(videoElement);
+        }
+
         const myDropzone = new Dropzone("#dZUpload", {
-            uploadMultiple: false,
+            uploadMultiple: true,
             paramName: "file", // The name that will be used to transfer the file
             maxFilesize: 500, // MB
             acceptedFiles: "video/*", // Limit file types to video files
             parallelUploads: 2, // Number of files to upload in parallel
             dictDefaultMessage: "Drop video files here or click to upload.",
             url: "hn_SimpeFileUploader.ashx",
+            init: function() {
+                // If there's an existing video, add it to the Dropzone
+                let videoUrl = $("#dZUpload").data('video-url');
+                if (videoUrl) {
+                    videoUrl=videoUrl.split(',');
+
+                    videoUrl.forEach(video => {
+                        videoLink = "{{ url('/videos') }}" + "/" + video;
+                        let mockFile = { name: "Current Video", size: 12345678 }; // Customize as needed
+                        createVideoThumbnail(mockFile, videoLink, this);
+                        // this.emit("addedfile", mockFile);
+                        // this.emit("thumbnail", mockFile, videoLink);
+                        // this.emit("complete", mockFile);
+                        // this.files.push(mockFile);
+                    });
+                }
+            }
         });
         const myDropzone1 = new Dropzone("#dZUpload1", {
-            uploadMultiple: false,
+            uploadMultiple: true,
             paramName: "file", // The name that will be used to transfer the file
             maxFilesize: 500, // MB
             acceptedFiles: "video/*", // Limit file types to video files
             parallelUploads: 2, // Number of files to upload in parallel
             dictDefaultMessage: "Drop video files here or click to upload.",
             url: "hn_SimpeFileUploader.ashx",
+            init: function() {
+                // If there's an existing video, add it to the Dropzone
+                let videoUrl = $("#dZUpload1").data('video-url');
+                if (videoUrl) {
+                    videoUrl=videoUrl.split(',');
+
+                    videoUrl.forEach(video => {
+                        videoLink = "{{ url('/previews') }}" + "/" + video;
+                        let mockFile = { name: "Current Video", size: 12345678 }; // Customize as needed
+                        createVideoThumbnail(mockFile, videoLink, this);
+                        // this.emit("addedfile", mockFile);
+                        // this.emit("thumbnail", mockFile, videoLink);
+                        // this.emit("complete", mockFile);
+                        // this.files.push(mockFile);
+                    });
+                }
+            }
         });
 
         $("#frm").submit(function(e) {
@@ -236,12 +285,17 @@
 
             // Check if myDropzone and myDropzone1 exist and have accepted files
             if (typeof myDropzone !== 'undefined' && myDropzone.getAcceptedFiles().length > 0) {
-                formData.append('video', myDropzone.getAcceptedFiles()[0]);
+                myDropzone.getAcceptedFiles().forEach(file => {
+                    formData.append('video[]', file);
+                });
             }
 
             if (typeof myDropzone1 !== 'undefined' && myDropzone1.getAcceptedFiles().length > 0) {
-                formData.append('preview', myDropzone1.getAcceptedFiles()[0]);
+                myDropzone1.getAcceptedFiles().forEach(file => {
+                    formData.append('preview[]', file);
+                })
             }
+
 
             // Determine if the form is for creating or updating
             let isUpdate = formData.has('id');
