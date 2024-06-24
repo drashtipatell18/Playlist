@@ -39,11 +39,15 @@
     </style>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ isset($video) ? 'Edit Video' : 'Create Popular Video' }}</h5>
+            <h5 class="card-title">{{ isset($video) ? 'Edit Video' : 'Create Video' }}</h5>
 
             <!-- General Form Elements -->
-            <form action="{{ isset($video) ? '/video/update/' . $videovideoid : '/video/store' }}" id="frm" method="POST">
+            <form action="{{ isset($video) ? '/video/update/' . $video->id : '/video/store' }}" id="frm" method="POST">
                 @csrf
+                @if (isset($video))
+                    @method('POST')
+                    <input type="hidden" name="id" value="{{ $video->id }}">
+                @endif
                 <div class="row mb-3">
                     <label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
                     <div class="col-sm-10">
@@ -110,11 +114,10 @@
                         <div id="dZUpload" class="dropzone">
                             @if (isset($video) && $video->video)
                                 <div class="mt-2">
-                                    <video width="320" height="240" controls>
+                                    <video width="200" height="200" controls>
                                         <source src="{{ url('videos/' . $video->video) }}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
-                                    <input type="hidden" name="existing_video" value="{{ $video->video }}">
                                 </div>
                             @endif
                             <div class="dz-default dz-message">Drop files here or click to upload +</div>
@@ -173,6 +176,14 @@
                     <label for="inputPopularTopic" class="col-sm-2 col-form-label">Preview</label>
                     <div class="col-sm-10">
                         <div id="dZUpload1" class="dropzone">
+                            @if (isset($video) && $video->video)
+                                <div class="mt-2">
+                                    <video width="200" height="200" controls>
+                                        <source src="{{ url('videos/' . $video->video) }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            @endif
                             <div class="dz-default dz-message">Drop files here or click to upload +</div>
                         </div>
                     </div>
@@ -222,18 +233,31 @@
             e.preventDefault();
 
             let formData = new FormData($("#frm")[0]);
-            formData.append('video', myDropzone.getAcceptedFiles()[0]);
-            formData.append('preview', myDropzone1.getAcceptedFiles()[0]);
+
+            // Check if myDropzone and myDropzone1 exist and have accepted files
+            if (typeof myDropzone !== 'undefined' && myDropzone.getAcceptedFiles().length > 0) {
+                formData.append('video', myDropzone.getAcceptedFiles()[0]);
+            }
+
+            if (typeof myDropzone1 !== 'undefined' && myDropzone1.getAcceptedFiles().length > 0) {
+                formData.append('preview', myDropzone1.getAcceptedFiles()[0]);
+            }
+
+            // Determine if the form is for creating or updating
+            let isUpdate = formData.has('id');
+            let url = isUpdate ? "{{ route('update.video', ['id' => ':id']) }}".replace(':id', formData.get(
+                'id')) : "{{ route('video.store') }}";
+            let method = isUpdate ? 'POST' :
+            'POST'; // Laravel uses POST for both create and update (PUT/PATCH via POST)
 
             $.ajax({
-                url: "{{ route('video.store') }}", // Ensure the correct route is set
-                type: "POST",
+                url: url,
+                type: method,
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function(response) {
                     if (response.success) {
-                        // alert('Video inserted successfully.');
                         window.location.href = "{{ route('video') }}"; // Redirect to the videos page
                     } else {
                         alert('An error occurred.');

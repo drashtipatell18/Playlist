@@ -37,29 +37,36 @@ class VideoController extends Controller
         ]);
 
         try {
-            if ($request->hasFile('video')) {
-                $videoFile = $request->file('video');
-                $videoFileName = time() . '_' . $videoFile->getClientOriginalName();
-                $videoFile->move('videos', $videoFileName); // Store video file in 'storage/app/videos' folder
+            $videoFiles = [];
+            if ($request->hasFile('videos')) {
+                foreach ($request->file('videos') as $videoFile) {
+                    $videoFileName = time() . '_' . $videoFile->getClientOriginalName();
+                    $videoFile->move(public_path('videos'), $videoFileName);
+                    $videoFiles[] = $videoFileName;
+                }
             }
 
+            $previewFileName = null;
             if ($request->hasFile('preview')) {
                 $previewFile = $request->file('preview');
                 $previewFileName = time() . '_' . $previewFile->getClientOriginalName();
-                $previewFile->move('previews', $previewFileName); // Store preview image in 'storage/app/previews' folder
+                $previewFile->move(public_path('previews'), $previewFileName);
             }
 
-            Video::create([
+            $video = Video::create([
                 'category_id' => $request->input('category_id'),
                 'sub_category_id' => $request->input('sub_category_id'),
                 'popular_topic_id' => $request->input('popular_topic_id'),
-                'video' => $videoFileName, // Store video file name in database
                 'video_course_name' => $request->input('video_course_name'),
                 'price' => $request->input('price'),
                 'description' => $request->input('description'),
                 'author' => $request->input('author'),
-                'preview' => $previewFileName, // Store preview image file name in database
+                'preview' => $previewFileName,
             ]);
+
+            foreach ($videoFiles as $fileName) {
+                $video->videos()->create(['file_name' => $fileName]);
+            }
 
             session()->flash('success', 'Video inserted successfully');
             return response()->json(['success' => true, 'message' => 'Video inserted successfully.']);
@@ -71,9 +78,6 @@ class VideoController extends Controller
     public function Editvideo($id)
     {
         $video = Video::find($id);
-        // echo '<pre>';
-        // print_r($video);
-        // echo '</pre>';exit;
         $categorys = Category::all();
         $subcategorys = SubCategory::all();
         $populartopics = PopularTopics::pluck('id', 'popular_topics_name');
@@ -95,22 +99,24 @@ class VideoController extends Controller
         try {
             $video = Video::findOrFail($id);
 
-            if ($request->hasFile('video')) {
-                $videoFile = $request->file('video');
-                $videoFileName = time() . '_' . $videoFile->getClientOriginalName();
-                $videoFile->move(public_path('videos'), $videoFileName);
-
-                // Delete the old video file if it exists
-                if ($video->video && file_exists(public_path('videos/' . $video->video))) {
-                    unlink(public_path('videos/' . $video->video));
+            // Handle multiple video uploads
+            $videoFiles = [];
+            if ($request->hasFile('videos')) {
+                foreach ($request->file('videos') as $videoFile) {
+                    $videoFileName = time() . '_' . $videoFile->getClientOriginalName();
+                    $videoFile->move(public_path('videos'), $videoFileName);
+                    $videoFiles[] = $videoFileName;
                 }
-
-                $video->video = $videoFileName;
-            } else if ($request->input('existing_video')) {
-                // Keep the existing video file name
-                $video->video = $request->input('existing_video');
             }
 
+            // Update existing videos if provided
+            if ($request->has('existing_videos')) {
+                foreach ($request->input('existing_videos') as $existingVideo) {
+                    // Process each existing video if needed (e.g., update properties)
+                }
+            }
+
+            // Handle preview image upload
             if ($request->hasFile('preview')) {
                 $previewFile = $request->file('preview');
                 $previewFileName = time() . '_' . $previewFile->getClientOriginalName();
@@ -127,6 +133,7 @@ class VideoController extends Controller
                 $video->preview = $request->input('existing_preview');
             }
 
+            // Update the video record
             $video->update([
                 'category_id' => $request->input('category_id'),
                 'sub_category_id' => $request->input('sub_category_id'),
@@ -136,7 +143,12 @@ class VideoController extends Controller
                 'author' => $request->input('author'),
                 'description' => $request->input('description'),
             ]);
-           
+
+            // Attach new video files to the video record
+            foreach ($videoFiles as $fileName) {
+                $video->videos()->create(['file_name' => $fileName]);
+            }
+
             session()->flash('success', 'Video updated successfully');
             return response()->json(['success' => true, 'message' => 'Video updated successfully.']);
         } catch (\Exception $e) {
