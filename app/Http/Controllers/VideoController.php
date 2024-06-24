@@ -37,14 +37,47 @@ class VideoController extends Controller
         ]);
 
         try {
-            if ($request->hasFile('video')) {
+            if(is_array($request->video))
+            {
+                $videoFileName = "";
+                $flag = true;
+                foreach ($request->video as $video) {
+                    if($flag)
+                    {
+                        $videoFileName .= time() . '_' . $video->getClientOriginalName();
+                        $flag = !$flag;
+                    }
+                    else
+                    {
+                        $videoFileName .= "," . time() . '_' . $video->getClientOriginalName();
+                    }
+                    $video->move(public_path('videos'), $videoFileName);
+                }
+            }
+            else if ($request->hasFile('video')) {
                     $videoFile = $request->file('video');
                     $videoFileName = time() . '_' . $videoFile->getClientOriginalName();
                     $videoFile->move(public_path('videos'), $videoFileName);
             }
 
-            $previewFileName = null;
-            if ($request->hasFile('preview')) {
+            $previewFileName = "";
+            if(is_array($request->preview))
+            {
+                $flag = true;
+                foreach ($request->preview as $preview) {
+                    if($flag)
+                    {
+                        $previewFileName .= time() . '_' . $preview->getClientOriginalName();
+                        $flag = !$flag;
+                    }
+                    else
+                    {
+                        $previewFileName .= "," . time() . '_' . $preview->getClientOriginalName();
+                    }
+                    $preview->move(public_path('previews'), $previewFileName);
+                }
+            }
+            else if ($request->hasFile('preview')) {
                 $previewFile = $request->file('preview');
                 $previewFileName = time() . '_' . $previewFile->getClientOriginalName();
                 $previewFile->move(public_path('previews'), $previewFileName);
@@ -55,11 +88,11 @@ class VideoController extends Controller
                 'sub_category_id' => $request->input('sub_category_id'),
                 'popular_topic_id' => $request->input('popular_topic_id'),
                 'video_course_name' => $request->input('video_course_name'),
-                'video' => $videoFile,
+                'video' => $videoFileName,
                 'price' => $request->input('price'),
                 'description' => $request->input('description'),
                 'author' => $request->input('author'),
-                'preview' => $previewFileName,
+                'perview' => $previewFileName,
             ]);
 
             session()->flash('success', 'Video inserted successfully');
