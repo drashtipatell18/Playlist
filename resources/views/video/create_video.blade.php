@@ -92,7 +92,7 @@
                             <option value="">Select Popular Topic</option>
                             @foreach ($populartopics as $id => $name)
                                 <option value="{{ $name }}"
-                                    {{ old('popular_topic_id', isset($video) ? $video->popular_topic_id : '') == $id ? 'selected' : '' }}>
+                                    {{ old('popular_topic_id', isset($video) ? $video->popular_topic_id : '') == $name ? 'selected' : '' }}>
                                     {{ $id }}
                                 </option>
                             @endforeach
