@@ -71,10 +71,12 @@ Route::post('/video/update/{id}', [VideoController::class, 'Updatevideo'])->name
 Route::get('/video/destroy/{id}',[VideoController::class,'Destroyvideo'])->name('destroy.video');
 
 // Video Group
-Route::get('/video-group', [VideoGroupController::class, 'index'])->name('video-group');
-Route::post('/video-group/store', [VideoGroupController::class, 'store']);
-Route::get('/video-group/create', [VideoGroupController::class, 'create'])->name('video-group-create');
+Route::get('/video-group', [VideoGroupController::class, 'videogroup'])->name('video-group');
+Route::get('/video-group/create', [VideoGroupController::class, 'createVideogroup'])->name('videogroup.create');
+Route::post('/video-group/store', [VideoGroupController::class, 'storeVideogroup'])->name('videogroup.store');
+Route::get('/video-group/edit/{id}', [VideoGroupController::class, 'editVideogroup'])->name('edit.videogroup');
+Route::post('/video-group/update/{id}', [VideoGroupController::class, 'updateVideogroup'])->name('update.videogroup');
+Route::get('/video-group/destroy/{id}', [VideoGroupController::class, 'destroyVideogroup'])->name('destroy.videogroup');
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -35,6 +35,14 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-sm-10">
+                            @if (isset($videoGroup) && $videoGroup->image)
+                                <img id="oldImage" style="width:100px"  src="{{ asset('video_groups/' . $videoGroup->image) }}"
+                                    alt="Uploaded Document">
+                                <input type="hidden" class="form-control" name="oldimage"
+                                    value="{{ $videoGroup->image }}">
+                            @endif
+                        </div>
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Video Group Image</label>
                             <div class="col-sm-10">

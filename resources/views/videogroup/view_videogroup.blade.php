@@ -21,7 +21,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">Video Group</h5>
-                    <a href="{{ route('video-group-create') }}"><button type="button" class="button-color"><i
+                    <a href="{{ route('videogroup.create') }}"><button type="button" class="button-color"><i
                                 class="bi bi-plus-lg me-1"></i>Add Video Group</button></a>
                 </div>
                 <table class="table datatable1">
@@ -41,12 +41,12 @@
                                 <td class="text-center">{{ $videoGroup->group_name }}</td>
                                 <td class="text-center">{{ $videoGroup->price }}</td>
                                 <td class="text-center">
-                                    <img src="{{ url('vide_groups/' . $videoGroup->image) }}" alt="" width="70">
+                                    <img src="{{ url('video_groups/' . $videoGroup->image) }}" alt="" width="70">
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('edit.category', $videoGroup->id) }}" class="btn btn-info btn-sm"><i
+                                    <a href="{{ route('edit.videogroup', $videoGroup->id) }}" class="btn btn-info btn-sm"><i
                                             class="bi bi-pencil-square"></i></a>
-                                    <a href="{{ route('destroy.category', $videoGroup->id) }}" class="btn btn-danger btn-sm"
+                                    <a href="{{ route('destroy.videogroup', $videoGroup->id) }}" class="btn btn-danger btn-sm"
                                         onclick="return confirm('Are you sure you want to delete this ?');"><i
                                             class="bi bi-trash3-fill"></i></a>
                                 </td>
