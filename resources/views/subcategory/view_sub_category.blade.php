@@ -22,11 +22,11 @@
         <div class="card">
             <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title">Sub Category List</h5>
+                <h5 class="card-title mb-0">Sub Category List</h5>
                 <div>
                     <a href="{{ route('subcategory.create') }}">
-                        <button type="button" class="btn btn-primary btn-sm mt-1" id="addCategoryBtn"><i
-                                class="bi bi-plus-lg"></i>
+                        <button type="button" class="button-color"><i
+                                class="bi bi-plus-lg me-1"></i>
                             Add Sub Category</button>
                     </a>
                 </div>
