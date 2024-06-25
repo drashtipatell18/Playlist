@@ -3,12 +3,9 @@
     <div class="col-lg-8 align-content" style="margin-left: auto;margin-right: auto">
         <div class="card section-center">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-title text-align">{{ isset($videoGroup) ? 'Edit Video Group' : 'Create Video Group' }}
-                    </h5>
-                    <a href="{{ route('video-group') }}"><button type="button" class="button-color"></i>View Video
-                            Groups</button></a>
-                </div>
+                <h5 class="card-title text-align">
+                    <div class="text-center">{{ isset($videoGroup) ? 'Edit Video Group' : 'Create Video Group' }}</div>
+                </h5>
                 <!-- General Form Elements -->
                 <form enctype="multipart/form-data"
                     action="{{ isset($videoGroup) ? '/video-group/update/' . $videoGroup->id : '/video-group/store' }}"

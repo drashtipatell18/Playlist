@@ -3,12 +3,10 @@
     <div class="col-lg-8 align-content" style="margin-left: auto;margin-right: auto">
         <div class="card section-center">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-title text-align">
-                        {{ isset($subscription) ? 'Edit Subscription' : 'Create Subscription' }}</h5>
-                    <a href="{{ route('subscription') }}"><button type="button" class="button-color"></i>View
-                            Subscription</button></a>
-                </div>
+                <h5 class="card-title">
+                    <div class="text-center">
+                        {{ isset($subscription) ? 'Edit Subscription' : 'Create Subscription' }}</div>
+                </h5>
                 <!-- General Form Elements -->
                 <form
                     action="{{ isset($subscription) ? '/subscription/update/' . $subscription->id : '/subscription/store' }}"

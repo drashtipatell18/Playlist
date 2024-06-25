@@ -39,8 +39,7 @@
     </style>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ isset($video) ? 'Edit Video' : 'Create Video' }}</h5>
-
+            <h5 class="card-title"><div class="text-center">{{ isset($video) ? 'Edit Video' : 'Create Video' }}</div></h5>
             <!-- General Form Elements -->
             <form action="{{ isset($video) ? '/video/update/' . $video->id : '/video/store' }}" id="frm" method="POST">
                 @csrf

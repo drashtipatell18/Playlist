@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ isset($populartopic) ? 'Edit Popular Topic' : 'Create Popular Topic' }}</h5>
+            <h5 class="card-title"><div class="text-center">{{ isset($populartopic) ? 'Edit Popular Topic' : 'Create Popular Topic' }}</div></h5>
 
             <!-- General Form Elements -->
             <form action="{{ isset($populartopic) ? '/populartopic/update/' . $populartopic->id : '/populartopic/store' }}" method="POST">

@@ -2,8 +2,9 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ isset($subcategory) ? 'Edit Sub Category' : 'Create Sub Category' }}</h5>
-
+            <h5 class="card-title">
+                <div class="text-center">{{ isset($subcategory) ? 'Edit Sub Category' : 'Create Sub Category' }}</div>
+            </h5>
             <!-- General Form Elements -->
             <form action="{{ isset($subcategory) ? '/subcategory/update/' . $subcategory->id : '/subcategory/store' }}"
                 method="POST">
